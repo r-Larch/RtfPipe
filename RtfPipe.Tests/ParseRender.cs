@@ -454,8 +454,9 @@ ffc001ffffffffffffc001ffffffffffffc001ffffffffffffc001040000002701ffff03000000
 
     public static void AssertEqual(string expected, string actual)
     {
-      if (expected != actual)
-        File.WriteAllText($@"C:\Users\erdomke\source\GitHub\RtfPipe\RtfPipe.Tests\Fail_{DateTime.Now:yyyyMMddHHmmss}_{Guid.NewGuid().ToString("N")}.html", expected + "\r\n\r\n<br><br><br>\r\n\r\n" + actual);
+      //if (expected != actual)
+      //  File.WriteAllText($@"C:\Users\erdomke\source\GitHub\RtfPipe\RtfPipe.Tests\Fail_{DateTime.Now:yyyyMMddHHmmss}_{Guid.NewGuid().ToString("N")}.html", expected + "\r\n\r\n<br><br><br>\r\n\r\n" + actual);
+      Console.WriteLine($"Actual:\n{actual}");
       Assert.AreEqual(expected, actual);
     }
   }
