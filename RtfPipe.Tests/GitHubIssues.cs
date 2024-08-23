@@ -327,6 +327,18 @@ ue\highlight0 \highlight3 Green\highlight0\par
         , "<div style=\"font-size:12pt;font-family:&quot;Microsoft Sans Serif&quot;;\"><p style=\"text-align:center;margin:0;\"><mark style=\"background:#FF0000;\">Red Background</mark><mark style=\"background:#0000FF;\">Bl</mark></p><p style=\"text-align:center;margin:0;\"><mark style=\"background:#0000FF;\">ue</mark><mark style=\"background:#00FF00;\">Green</mark></p></div>");
     }
 
+    [TestMethod]
+    public void Issue68()
+    {
+      // invalid date: {\info{\creatim\yr0\mo0\dy0\hr0\min0}...}
+      TestConvert(@"{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Verdana;} \viewkind4\uc1\pard\f0\fs18 5% Auf Patronen \par \f1\par }{\info{\creatim\yr0\mo0\dy0\hr0\min0}{\revtim\yr2021\mo12\dy31\hr11\min47}{\printim\yr0\mo0\dy0\hr0\min0}} {\f1\fnil Verdana;}}"
+        , "<div style=\"font-size:12pt;font-family:Verdana;\"><p style=\"margin:0;\"><span style=\"font-family:Verdana;\"> </span>Verdana;</p></div>");
+
+      // {\info{\creatim\yr2021\mo7\dy13\hr10\min51}{\revtim\yr2021\mo7\dy13\hr10\min52}{\printim\yr0\mo0\dy0\hr0\min0}}
+      TestConvert(@"{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Verdana;} \viewkind4\uc1\pard\f0\fs18 5% Auf Patronen \par \f1\par }{\info{\creatim\yr2021\mo7\dy13\hr10\min51}{\revtim\yr2021\mo7\dy13\hr10\min52}{\printim\yr0\mo0\dy0\hr0\min0}} {\f1\fnil Verdana;}}"
+        , "<div style=\"font-size:12pt;font-family:Verdana;\"><p style=\"margin:0;\"><span style=\"font-family:Verdana;\"> </span>Verdana;</p></div>");
+    }
+
     private void TestConvert(RtfSource rtf, string html)
     {
       var actual = Rtf.ToHtml(rtf);
