@@ -1,6 +1,7 @@
 using RtfPipe.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -544,7 +545,7 @@ namespace RtfPipe.Model
     {
       var size = IndentSize(parentStyles, newLine, tabCount);
       _writer.WriteStartElement("span");
-      _writer.WriteAttributeString("style", $"display:inline-block;width:{size.ToPx()}px");
+      _writer.WriteAttributeString("style", $"display:inline-block;width:{size.ToPx().ToString(CultureInfo.InvariantCulture)}px");
       _writer.WriteEndElement();
     }
 
@@ -569,10 +570,10 @@ namespace RtfPipe.Model
         _writer.WriteStartElement("img");
 
         if (image.Width.HasValue)
-          _writer.WriteAttributeString("width", image.Width.ToPx().ToString("0"));
+          _writer.WriteAttributeString("width", image.Width.ToPx().ToString("0", CultureInfo.InvariantCulture));
 
         if (image.Height.HasValue)
-          _writer.WriteAttributeString("height", image.Height.ToPx().ToString("0"));
+          _writer.WriteAttributeString("height", image.Height.ToPx().ToString("0", CultureInfo.InvariantCulture));
 
         _writer.WriteAttributeString("src", uri);
         _writer.WriteEndElement();
